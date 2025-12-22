@@ -9,8 +9,8 @@ app.use(cors());
 dotenv.config();    
 const PORT = process.env.PORT || 3000 ;
 
-import studentRoutes from './routes/studentRoutes.js' ;
-app.use('/students', studentRoutes);        
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+//import studentRoutes from './routes/studentRoutes.js' ;
+//app.use('/students', studentRoutes);        
+app.listen(process.env.PORT, () => {
+    console.log(`Server is running on port ${process.env.PORT}`);
 });
