@@ -2,10 +2,10 @@
 import {BrowserRouter,Routes,Route,Navigate} from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login.jsx';
-import AdminDashboard from './pages/AdminDashboard.jsx';
-import ScolarityDashboard from './pages/ScolarityDashboard.jsx';
-import StudentDashboard from './pages/StudentDashboard';
-import StudentCourse from './pages/StudentCourse';
+import AdminDashboard from './pages/Admin/AdminDashboard.jsx';
+import ScolarityDashboard from './pages/Scolarity/ScolarityDashboard.jsx';
+import StudentDashboard from './pages/Student/StudentDashboard.jsx';
+import StudentCourse from './pages/Student/StudentCourse.jsx';
 import Unauthorized from './pages/Unauthorized';
 
 import Navbar from './components/Navbar';

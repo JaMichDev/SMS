@@ -1,5 +1,6 @@
 import React from 'react';  
 import { useAuth } from '../context/AuthContext';
+import { GoogleLogin } from '@react-oauth/google';
 
 /*
 const Login = () => {
@@ -15,16 +16,6 @@ export default Login;
 
 
 export default function Login() {
-  const { login } = useAuth();
-
-  const loginLocal = async () => {
-    // SIMULATION: backend response
-    login({
-      token: 'jwt-token',
-      user: { role: 'student' } // admin | scolarite | student
-    });
-  };
-
   const loginGoogle = () => {
     window.location.href = 'http://localhost:5000/auth/google';
   };
@@ -36,9 +27,32 @@ export default function Login() {
   return (
     <div>
       <h2>Login</h2>
-      <button onClick={loginLocal}>Login with Username</button>
+
+      <form>
+        <input placeholder="Username" />
+        <input type="password" placeholder="Password" />
+        <button>Login</button>
+      </form>
+
+      <hr />
+
       <button onClick={loginGoogle}>Login with Google</button>
       <button onClick={loginGithub}>Login with GitHub</button>
+    </div>
+  );
+}
+
+
+export default function LoginWithGoogle() {
+  return (
+    <div>
+      <GoogleLogin
+        onSuccess={(response) => {
+          console.log(response.credential);
+          // send credential to backend
+        }}
+        onError={() => console.log('Login Failed')}
+      />
     </div>
   );
 }

@@ -1,5 +1,18 @@
 import jwt from 'jsonwebtoken';
 
+export const verifyTokenProd = (req, res, next) => {
+  const auth = req.headers.authorization;
+  if (!auth) return res.status(401).json({ message: 'No token' });
+
+  const token = auth.split(' ')[1];
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+  req.user = decoded;
+  next();
+};
+
+
+
 export const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ message: 'No token' });
@@ -14,3 +27,5 @@ export const verifyToken = (req, res, next) => {
     res.status(401).json({ message: 'Invalid token' });
   }
 };
+
+
