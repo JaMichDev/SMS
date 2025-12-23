@@ -1,16 +1,16 @@
-import express from 'express' ;
-import cors from 'cors' ;
-import dotenv from 'dotenv' ;
+import dotenv from 'dotenv'; //dotenv : charger les variables du fichier .env
+dotenv.config(); // UNE SEULE FOIS, tout en haut
+
+import express from 'express'; //express : serveur web
+import cors from 'cors'; //cors : autoriser les requêtes du frontend
 
 const app = express();
+
 app.use(express.json());
-app.use(cors());    
+app.use(cors());
 
-dotenv.config();    
-const PORT = process.env.PORT || 3000 ;
+const PORT = process.env.PORT || 3000;
 
-//import studentRoutes from './routes/studentRoutes.js' ;
-//app.use('/students', studentRoutes);        
-app.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT}`);
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
