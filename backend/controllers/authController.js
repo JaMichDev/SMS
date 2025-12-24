@@ -5,6 +5,16 @@ import { OAuth2Client } from "google-auth-library";
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
+export const login = async (req, res) => {
+  console.log("Received:", req.body);
+
+  return res.json({
+    message: "Login OK (test)",
+    token: "fake-jwt-token",
+  });
+};
+
+/*
 // LOGIN LOCAL
 export const login = async (req, res) => {
   try{
@@ -26,27 +36,14 @@ export const login = async (req, res) => {
     { expiresIn: '1d' }
   );
 
-  res.status(200).json({
-    success: true,
-    token,
-    user: {id: user._id,name:user.name, role: user.role},
+  res.status(200).json({success: true,token,user: {id: user._id,name:user.name, role: user.role},
   });
-
-  /* ✅ THIS IS THE CODE YOU ASKED ABOUT
-  res.json({
-    token,
-    user: {
-      id: user._id,
-      role: user.role
-    }
-  });
-  */
 
   }catch(error){
       console.log(error.message)
   }
 };
-
+*/
 
 // LOGIN GOOGLE
 export const loginGoogle = async (req, res) => {
@@ -109,3 +106,5 @@ export const githubCallback = (req, res) => {
     `http://localhost:5173/oauth-success?token=${token}&role=${req.user.role}`
   );
 };
+
+
