@@ -5,11 +5,12 @@ import { OAuth2Client } from "google-auth-library";
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-// LOGIN CLASSIQUE
-export const loginLocal = async (req, res) => {
+// LOGIN LOCAL
+export const login = async (req, res) => {
+  try{
   const { email, password } = req.body;
-
   const user = await User.findOne({ email });
+
   if (!user) {
     return res.status(401).json({ message: 'Invalid credentials' });
   }
@@ -25,7 +26,13 @@ export const loginLocal = async (req, res) => {
     { expiresIn: '1d' }
   );
 
-  // ✅ THIS IS THE CODE YOU ASKED ABOUT
+  res.status(200).json({
+    success: true,
+    token,
+    user: {id: user._id,name:user.name, role: user.role},
+  });
+
+  /* ✅ THIS IS THE CODE YOU ASKED ABOUT
   res.json({
     token,
     user: {
@@ -33,6 +40,11 @@ export const loginLocal = async (req, res) => {
       role: user.role
     }
   });
+  */
+
+  }catch(error){
+      console.log(error.message)
+  }
 };
 
 
