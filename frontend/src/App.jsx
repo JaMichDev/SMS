@@ -1,69 +1,60 @@
 
-import {BrowserRouter,Routes,Route,Navigate} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+
 import Login from './pages/Login.jsx';
 import AdminDashboard from './pages/Admin/AdminDashboard.jsx';
 import ScolarityDashboard from './pages/Scolarity/ScolarityDashboard.jsx';
 import StudentDashboard from './pages/Student/StudentDashboard.jsx';
 import StudentCourse from './pages/Student/StudentCourse.jsx';
-import Unauthorized from './pages/Unauthorized';
 
-import Navbar from './components/Navbar';
-import ProtectedRoute from './components/ProtectedRoute';
+import Navbar from './components/Navbar.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 
-/*
-function App() {
-  return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Navigate to='/login'/>}></Route>
-          <Route path="/login" element={<Login/>}></Route>
-          <Route path="/admin-dashboard" element={<AdminDashboard/>}></Route>
-        </Routes>
-      </BrowserRouter>
-    </>
-  )
-}
-*/
-
-
-function App() {
+export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Navbar />
-        <Routes>
-          <Route path="/login" element={<Login />} />
 
+        <Routes>
+          {/* Public */}
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+         
+
+          {/* Admin */}
           <Route
-            path="/admin-dashboard"
+            path="/admin"
             element={
               <ProtectedRoute roles={['admin']}>
-                <Dashboard />
+                <AdminDashboard />
               </ProtectedRoute>
             }
           />
+
+          {/* Scolarity */}
           <Route
-            path="/scolarity-dashboard"
+            path="/scolarite"
             element={
-              <ProtectedRoute roles={['scolarite']}>
-                <Dashboard />
+              <ProtectedRoute roles={['admin', 'scolarite']}>
+                <ScolarityDashboard />
               </ProtectedRoute>
             }
           />
- 
+
+          {/* Student */}
           <Route
-            path="/student-dashboard"
+            path="/student/dashboard"
             element={
-              <ProtectedRoute roles={['student']}>
+              <ProtectedRoute roles={['admin', 'scolarite', 'student']}>
                 <StudentDashboard />
               </ProtectedRoute>
             }
           />
 
           <Route
-            path="/student-course"
+            path="/student/course"
             element={
               <ProtectedRoute roles={['student']}>
                 <StudentCourse />
@@ -71,22 +62,10 @@ function App() {
             }
           />
 
-          <Route path="/unauthorized" element={<Unauthorized />} />
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
   );
 }
-
-
-export default App
-
-
-
-
-
-
-
-
-
-

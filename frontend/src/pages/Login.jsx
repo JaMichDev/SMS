@@ -14,9 +14,8 @@ const Login = () => {
 export default Login;   
 */
 
-
 export default function Login() {
-  const loginGoogle = () => {
+  const loginGoogleRedirect = () => {
     window.location.href = 'http://localhost:5000/auth/google';
   };
 
@@ -28,31 +27,28 @@ export default function Login() {
     <div>
       <h2>Login</h2>
 
+      {/* Login local */}
       <form>
         <input placeholder="Username" />
         <input type="password" placeholder="Password" />
-        <button>Login</button>
+        <button type="button">Login</button>
       </form>
 
       <hr />
 
-      <button onClick={loginGoogle}>Login with Google</button>
-      <button onClick={loginGithub}>Login with GitHub</button>
-    </div>
-  );
-}
-
-
-export default function LoginWithGoogle() {
-  return (
-    <div>
+      {/* Google OAuth with react-oauth/google */}
       <GoogleLogin
         onSuccess={(response) => {
-          console.log(response.credential);
-          // send credential to backend
+          console.log('Google credential:', response.credential);
+          // TODO: send response.credential to backend
         }}
-        onError={() => console.log('Login Failed')}
+        onError={() => console.log('Google Login Failed')}
       />
+
+      <hr />
+
+      {/* GitHub OAuth (redirect flow) */}
+      <button onClick={loginGithub}>Login with GitHub</button>
     </div>
   );
 }
